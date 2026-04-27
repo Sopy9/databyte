@@ -4,6 +4,7 @@ function Navbar() {
   return (
     <nav>
         <Link to="/">databyte</Link>
+        <Link to="/">Explore</Link>
         <Link to="/lessons">Lessons</Link>
         <Link to="/quizzes/0">Quizzes</Link>
         <Link to="/dashboard">Dashboard</Link>
