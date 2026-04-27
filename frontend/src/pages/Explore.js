@@ -18,21 +18,21 @@ function Explore() {
         
         <Link to="/lessons">
             <div>
-                <h3>Lessons</h3>
+                <h5>Lessons</h5>
                 <p>Learn the content</p>
             </div>
         </Link>
 
         <Link to="/quizzes/0">
             <div>
-                <h3>Quizzes</h3>
+                <h5>Quizzes</h5>
                 <p>Test your knowledge</p>
             </div>
         </Link>
 
         <Link to="/dashboard">
             <div>
-                <h3>Dashboard</h3>
+                <h5>Dashboard</h5>
                 <p>See your progress</p>
             </div>
         </Link>
