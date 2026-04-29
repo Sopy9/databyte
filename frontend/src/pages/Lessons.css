@@ -1,0 +1,19 @@
+.module-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 60px;
+    margin-bottom: 120px;
+}
+
+.mod-card {
+    border: 2px solid black;
+    padding: 50px 40px;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+}
+
+.mod-card:hover {
+    background-color: #E6E6E6;
+}

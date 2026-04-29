@@ -5,10 +5,9 @@ function Module() {
     const { moduleId } = useParams();
     if (moduleId !== "1") {
         return (
-            <div>
+            <div className="container">
                 <h1>This Module hasn't been made yet</h1>
                 <p>More lessons coming soon...</p>
-                <p>coming soon...</p>
             </div>
         )
     }
