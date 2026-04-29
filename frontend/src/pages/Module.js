@@ -13,7 +13,7 @@ function Module() {
         )
     }
   return (
-  <div>
+  <div className="container">
     <h1>Module 1</h1>
     <h3>Lesson 0</h3>
 

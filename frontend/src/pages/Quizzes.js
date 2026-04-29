@@ -49,7 +49,7 @@ function Quizzes() {
 
 
   return (
-  <div>
+  <div className="container">
     <h1>Quizzes</h1>
     <h4>Lesson 0</h4>
 

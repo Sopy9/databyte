@@ -19,7 +19,7 @@ function Dashboard() {
 
   if (!user) {
     return (
-      <div>
+      <div className="container">
         <h2>You are signed out</h2>
         <button onClick={() => navigate('/signin')}>Sign In</button>
       </div>
@@ -27,7 +27,7 @@ function Dashboard() {
   }
 
   return (
-    <div>
+    <div className="container">
       <div>
         <h1>Dashboard</h1>
         <div>

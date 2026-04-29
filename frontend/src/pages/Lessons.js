@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 function Lessons() {
 
   return (
-  <div>
+  <div className="container">
     {/** header ig */}
     <h1>Lessons</h1>
     
