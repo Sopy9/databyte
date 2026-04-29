@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import './Module.css';
 
 function Module() {
 
@@ -16,8 +17,8 @@ function Module() {
     <h1>Module 1</h1>
     <h3>Lesson 0</h3>
 
-    <div>
-        <div>
+    <div className="lesson-layout">
+        <div className="lesson-content">
             <h4>What is Data Science?</h4>
             <p>
                 Data science is the practice of extracting meaning from data. It combines statistics, 
@@ -39,7 +40,7 @@ function Module() {
             </p>
         </div>
 
-        <div>
+        <div className="fun-facts">
             <h4>Fun Facts about Data Science!</h4>
             <ul>
                 <li>The term 'data scientist' was coined in 2008 — it's one of the newest major job titles in tech!</li>
@@ -50,10 +51,10 @@ function Module() {
     </div>
 
     <Link to="/quizzes/0">
-        <button>Take Quiz 0!</button>
+        <button className="quiz-btn">Take Quiz 0!</button>
     </Link>
 
-    <div>
+    <div className="coming-soon">
         <h3>Lesson 1</h3>
         <p>coming soon...</p>
     </div>    
