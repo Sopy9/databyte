@@ -95,7 +95,11 @@ p {
   justify-content: center;
   text-decoration: none;
   color: black;
+}
 
+.signin-btn:hover {
+  color: black !important;
+  background-color: #6ba0eb;
 }
 
 /* Footer */
