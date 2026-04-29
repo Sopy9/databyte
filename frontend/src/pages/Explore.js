@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import './Explore.css'
 
 function Explore() {
   return (
@@ -41,12 +42,12 @@ function Explore() {
     {/* Created by Section */}
     <div className="created-by">
         <h2>Created by</h2>
-        <div> 
+        <div className="creators"> 
             <div>
-                <p>Bradley Tsou</p>
+                <h5>Bradley Tsou</h5>
             </div>
             <div>
-                <p>Sophie Kang</p>
+                <h5>Sophie Kang</h5>
             </div>
         </div>
     </div>
