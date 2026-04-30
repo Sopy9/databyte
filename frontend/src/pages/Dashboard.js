@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
+import './Dashboard.css';
 
 function Dashboard() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); 
+  // const [user, setUser] = useState({ email: "sophie@berkeley.edu" }); 
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,9 +22,9 @@ function Dashboard() {
 
   if (!user) {
     return (
-      <div className="container">
-        <h2>You are signed out</h2>
-        <button onClick={() => navigate('/signin')}>Sign In</button>
+      <div className="container signed-out">
+        <h3>You are signed out</h3>
+        <button className="dashboard-btn" onClick={() => navigate('/signin')}>Sign In</button>
       </div>
     );
   }
@@ -30,14 +33,17 @@ function Dashboard() {
     <div className="container">
       <div>
         <h1>Dashboard</h1>
-        <div>
-          <h2>Welcome back, {user.email}!</h2>
-          <p>Quiz Progress</p>
-          <div>
-            <progress value="1" max="10" />
-            <span>1/10</span>
-          </div>
-          <button onClick={handleSignOut}>Sign Out</button>
+        <div className="dashboard-card">
+          <h3>Welcome back, {user.email}!</h3>
+          <h4 className="progress-label">Quiz Progress</h4>
+          <div className="progress-row">
+            <div className="progress-track">
+              <div className="progress-fill" style={{ width: '10%' }}></div>
+            </div>
+              <span>1/10</span>
+            </div>
+            <br />
+          <button className="dashboard-btn" onClick={handleSignOut}>Sign Out</button>
         </div>
       </div>
     </div>
