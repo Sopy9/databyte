@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import './Quizzes.css';
+import { supabase } from '../supabaseClient';
 
 function Quizzes() {
   const [selected, setSelected] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+
   const questions = [
     {
       id: 1,
@@ -37,43 +40,71 @@ function Quizzes() {
   ];
 
   function handleSelect(questionId, answer) {
+    if (submitted) return;
     setSelected({ ...selected, [questionId]: answer });
   }
 
   function getColor(questionId, answer) {
-    if (!selected[questionId]) return ''; // if user didn't click anything for this question, no color
+    if (!selected[questionId]) return '';
     if (selected[questionId].label === answer.label) {
-      return answer.correct ? '#9EFF95' : '#FF5959'; // if correct answer, green else red
+      return answer.correct ? '#9EFF95' : '#FF5959';
     }
     return '';
   }
 
+  async function handleSubmit() {
+    const score = questions.filter(q => selected[q.id]?.correct).length;
+    const { data } = await supabase.auth.getSession();
+    const userId = data?.session?.user?.id;
+
+    if (userId) {
+      await fetch('http://localhost:4000/api/progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: userId, lesson_id: 1, score })
+      });
+    }
+    setSubmitted(true);
+  }
 
   return (
-  <div className="container">
-    <h1>Quizzes</h1>
-    <h4>Lesson 0</h4>
+    <div className="container">
+      <h1>Quizzes</h1>
+      <h4 className="quiz-lesson-title">Lesson 0</h4>
 
-    <div className="quiz-box">
-      {questions.map((q) => (
-        <div key={q.id} className="question-block">
-          <p className="question-text">{q.question}</p>
-          <div className="answers-grid">
-            {q.answers.map((answer) => (
-              <button
-              key={answer.label}
-              className="answer-btn"
-              onClick={() => handleSelect(q.id, answer)}
-              style={{ backgroundColor: getColor(q.id, answer) }}
-              >
-                {answer.label}
-              </button>
-            ))}
+      <div className="quiz-box">
+        {questions.map((q) => (
+          <div key={q.id} className="question-block">
+            <p className="question-text">{q.question}</p>
+            <div className="answers-grid">
+              {q.answers.map((answer) => (
+                <button
+                  key={answer.label}
+                  className="answer-btn"
+                  onClick={() => handleSelect(q.id, answer)}
+                  style={{ backgroundColor: getColor(q.id, answer) }}
+                >
+                  {answer.label}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+
+      {!submitted && (
+        <button className="submit-btn" onClick={handleSubmit}>
+          Submit Quiz
+        </button>
+      )}
+
+      {submitted && (
+        <p className="score-text">
+          Quiz submitted! Score: {questions.filter(q => selected[q.id]?.correct).length}/{questions.length}
+        </p>
+      )}
     </div>
-  </div>
-  )
+  );
 }
-export default Quizzes
+
+export default Quizzes;
