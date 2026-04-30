@@ -53,19 +53,23 @@ function Quizzes() {
   }
 
   async function handleSubmit() {
-    const score = questions.filter(q => selected[q.id]?.correct).length;
-    const { data } = await supabase.auth.getSession();
-    const userId = data?.session?.user?.id;
+  const score = questions.filter(q => selected[q.id]?.correct).length;
+  const { data } = await supabase.auth.getSession();
+  const userId = data?.session?.user?.id;
 
-    if (userId) {
+  if (userId) {
+    try {
       await fetch('http://localhost:4000/api/progress', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: userId, lesson_id: 1, score })
       });
+    } catch (err) {
+      console.log('Backend not available yet:', err);
     }
-    setSubmitted(true);
   }
+  setSubmitted(true);
+}
 
   return (
     <div className="container">

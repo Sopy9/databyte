@@ -9,17 +9,18 @@ function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      const currentUser = data?.session?.user ?? null;
-      setUser(currentUser);
+  supabase.auth.getSession().then(({ data }) => {
+    const currentUser = data?.session?.user ?? null;
+    setUser(currentUser);
 
-      if (currentUser) {
-        fetch(`http://localhost:4000/api/progress/${currentUser.id}`)
-          .then(res => res.json())
-          .then(data => setProgress(data));
-      }
-    });
-  }, []);
+    if (currentUser) {
+  fetch(`http://localhost:4000/api/progress/${currentUser.id}`)
+    .then(res => res.json())
+    .then(data => setProgress(data))
+    .catch(err => console.log('Backend not available yet:', err));
+}
+  });
+}, []);
 
   async function handleSignOut() {
     await supabase.auth.signOut();
