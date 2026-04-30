@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './Quizzes.css';
 
 function Quizzes() {
   const [selected, setSelected] = useState({});
@@ -42,7 +43,7 @@ function Quizzes() {
   function getColor(questionId, answer) {
     if (!selected[questionId]) return ''; // if user didn't click anything for this question, no color
     if (selected[questionId].label === answer.label) {
-      return answer.correct ? 'green' : 'red'; // if correct answer, green else red
+      return answer.correct ? '#9EFF95' : '#FF5959'; // if correct answer, green else red
     }
     return '';
   }
@@ -53,14 +54,15 @@ function Quizzes() {
     <h1>Quizzes</h1>
     <h4>Lesson 0</h4>
 
-    <div>
+    <div className="quiz-box">
       {questions.map((q) => (
-        <div key={q.id}>
-          <p>{q.question}</p>
-          <div>
+        <div key={q.id} className="question-block">
+          <p className="question-text">{q.question}</p>
+          <div className="answers-grid">
             {q.answers.map((answer) => (
               <button
               key={answer.label}
+              className="answer-btn"
               onClick={() => handleSelect(q.id, answer)}
               style={{ backgroundColor: getColor(q.id, answer) }}
               >

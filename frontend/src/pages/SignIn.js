@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
+import './SignIn.css';
 
 function SignIn() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [loginUsername, setLoginUsername] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [signupUsername, setSignupUsername] = useState('');
+  const [signupPassword, setSignupPassword] = useState('');
   const navigate = useNavigate();
 
   async function handleLogin() {
     const { error } = await supabase.auth.signInWithPassword({
-      email: username,
-      password: password,
+      email: loginUsername,
+      password: loginPassword,
     });
     if (error) alert(error.message);
     else navigate('/dashboard');
@@ -18,49 +21,60 @@ function SignIn() {
 
   async function handleSignUp() {
     const { error } = await supabase.auth.signUp({
-      email: username,
-      password: password,
+      email: signupUsername,
+      password: signupPassword,
     });
     if (error) alert(error.message);
     else navigate('/dashboard');
   }
 
   return (
-  <div className="container">
-    <div>
-      <h3>Log In</h3>
-      <label>Username</label>
-      <input
-      type="text"
-      value={username}
-      onChange={(e) => setUsername(e.target.value)}
-      />
-      <label>Password</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Log In</button>
-    </div>
+  <div className="container signin-container">
+    <div className="auth-panels">
 
-    <div>
-        <h3>Sign Up</h3>
-        <label>Username</label>
+
+      <div className="auth-box">
+        <h3>Log In</h3>
+        <h4>Username</h4>
         <input
           type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          className="auth-input"
+          value={loginUsername}
+          onChange={(e) => setLoginUsername(e.target.value)}
         />
-        <label>Password</label>
+        <h4>Password</h4>
+          <input
+            type="password"
+            className="auth-input"
+            value={loginPassword}
+            onChange={(e) => setLoginPassword(e.target.value)}
+        />
+        <button className="auth-btn" onClick={handleLogin}>Log In</button>
+      </div>
+   
+
+      <div className="auth-box">
+        <h3>Sign Up</h3>
+        <h4>Username</h4>
+        <input
+          type="text"
+          className="auth-input"
+          value={signupUsername}
+          onChange={(e) => setSignupUsername(e.target.value)}
+        />
+        <h4>Password</h4>
         <input
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          className="auth-input"
+          value={signupPassword}
+          onChange={(e) => setSignupPassword(e.target.value)}
         />
-        <button onClick={handleSignUp}>Sign Up</button>
-      </div>
+        <button className="auth-btn" onClick={handleSignUp}>Sign Up</button>
+      </div> 
+
+    </div>
   </div>
+
   )
 }
 export default SignIn
