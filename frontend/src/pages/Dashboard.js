@@ -4,14 +4,20 @@ import { supabase } from '../supabaseClient';
 import './Dashboard.css';
 
 function Dashboard() {
-  const [user, setUser] = useState(null); 
-  // const [user, setUser] = useState({ email: "sophie@berkeley.edu" }); 
-
+  const [user, setUser] = useState(null);
+  const [progress, setProgress] = useState({ completed: 0, total: 10 });
   const navigate = useNavigate();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      setUser(data?.session?.user ?? null);
+      const currentUser = data?.session?.user ?? null;
+      setUser(currentUser);
+
+      if (currentUser) {
+        fetch(`http://localhost:4000/api/progress/${currentUser.id}`)
+          .then(res => res.json())
+          .then(data => setProgress(data));
+      }
     });
   }, []);
 
@@ -29,6 +35,8 @@ function Dashboard() {
     );
   }
 
+  const progressPercent = (progress.completed / progress.total) * 100;
+
   return (
     <div className="container">
       <div>
@@ -38,11 +46,11 @@ function Dashboard() {
           <h4 className="progress-label">Quiz Progress</h4>
           <div className="progress-row">
             <div className="progress-track">
-              <div className="progress-fill" style={{ width: '10%' }}></div>
+              <div className="progress-fill" style={{ width: `${progressPercent}%` }}></div>
             </div>
-              <span>1/10</span>
-            </div>
-            <br />
+            <span>{progress.completed}/{progress.total}</span>
+          </div>
+          <br />
           <button className="dashboard-btn" onClick={handleSignOut}>Sign Out</button>
         </div>
       </div>
